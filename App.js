@@ -1,6 +1,8 @@
+import 'react-native-gesture-handler';
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { Button } from '@rneui/themed';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -59,7 +61,6 @@ function Home({ navigation, route }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Exercise Tracker</Text>
-
       <FlatList
         data={exercises}
         keyExtractor={(item) => item.id}
@@ -206,23 +207,25 @@ function DurationExercise({ navigation, route }) {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          initialParams={{ exercises: exercisesData }}
-        />
-        <Stack.Screen
-          name="RepetitionExercise"
-          component={RepetitionExercise}
-        />
-        <Stack.Screen
-          name="DurationExercise"
-          component={DurationExercise}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            initialParams={{ exercises: exercisesData }}
+          />
+          <Stack.Screen
+            name="RepetitionExercise"
+            component={RepetitionExercise}
+          />
+          <Stack.Screen
+            name="DurationExercise"
+            component={DurationExercise}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 
@@ -238,11 +241,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 25,
+    color: '#000000',
   },
   counterText: {
     fontSize: 22,
     textAlign: 'center',
     marginBottom: 20,
+    color: '#000000',
   },
   buttonContainer: {
     marginVertical: 8,
